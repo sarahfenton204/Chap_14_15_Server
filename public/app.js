@@ -1,35 +1,30 @@
 async function loadWeather() {
-    const id = document.getElementById("pokemonId").value;
+    const latitude = document.getElementById("latitude").value;
+    const longitude = document.getElementById("longitude").value;
     const status = document.getElementById("status");
     const card = document.getElementById("pokemonCard");
 
     // Validate input
-    if (!id || id < 1 || id > 151) {
-        status.textContent = "Please enter a valid Pokémon ID between 1 and 151.";
-        card.classList.add("hidden");
-        return;
+    if (!latitude || !longitude) {
+        return res.status(400).json({ error: "Latitude and longitude are required" });
     }
 
     try {
         status.textContent = "Loading...";
         card.classList.add("hidden");
 
-        const response = await fetch(`/pokemon/${id}`);
+        const response = await fetch(`/weather?latitude=${latitude}&longitude=${longitude}`);
 
         if (!response.ok) {
             throw new Error("Pokemon not found!");
         }
 
-        const pokemon = await response.json();
+        const weather = await response.json();
 
         // Populate the card
-        document.getElementById("pokemonSprite").src = pokemon.sprite;
-        document.getElementById("pokemonName").textContent = pokemon.name;
-        document.getElementById("pokemonID").textContent = pokemon.id;
-        document.getElementById("pokemonHeight").textContent = pokemon.height / 10 + " m";
-        document.getElementById("pokemonWeight").textContent = pokemon.weight / 10 + " kg";
-        document.getElementById("pokemonTypes").textContent = pokemon.types.join(", ");
-        document.getElementById("pokemonAbilities").textContent = pokemon.abilities.join(", ");
+        document.getElementById("temperature").textContent = weather.temperature;
+        document.getElementById("windspeed").textContent = weather.windspeed;
+        document.getElementById("winddirection").textContent = weather.winddirection;
 
         status.textContent = "";
         card.classList.remove("hidden");
@@ -42,8 +37,14 @@ async function loadWeather() {
 }
 
 // Allow pressing Enter to search
-document.getElementById("pokemonId").addEventListener("keypress", (e) => {
+document.getElementById("latitude").addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
-        loadPokemon();
+        loadWeather();
+    }
+});
+
+document.getElementById("longitude").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        loadWeather();
     }
 });
