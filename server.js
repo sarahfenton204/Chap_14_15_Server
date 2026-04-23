@@ -1,30 +1,27 @@
 const express = require("express");
 const path = require("path");
-const fetch = require("node-fetch");
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/pokemon/:id", async (req, res) => {
+app.get("/weather", async (req, res) => {
     try {
-        const { id } = req.params;
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        const { latitude, longitude } = req.query;
+        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
 
-        if (!response.ok) {
-            return res.status(404).json({ error: "Pokemon not found" });
+        if (!latitude || !longitude) {
+            return res.status(404).json({ error: "Latitude and longitude are required" });
         }
 
         const data = await response.json();
 
+        const weather = data.current_weather;
+
         // Send back only the data we need
         res.json({
-            id: data.id,
-            name: data.name,
-            height: data.height,
-            weight: data.weight,
-            types: data.types.map(t => t.type.name),
-            abilities: data.abilities.map(a => a.ability.name),
-            sprite: data.sprites.front_default
+            temperature: weather.temperature,
+            windspeed: weather.windspeed,
+            winddirection: weather.direction,
         });
 
     } catch (error) {
