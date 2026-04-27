@@ -6,7 +6,9 @@ async function loadWeather() {
 
     // Validate input
     if (!latitude || !longitude) {
-        return res.status(400).json({ error: "Latitude and longitude are required" });
+        status.textContent = "Please enter both latitude and longitude.";
+        card.classList.add("hidden");
+        return;
     }
 
     try {
@@ -21,10 +23,15 @@ async function loadWeather() {
 
         const weather = await response.json();
 
+        const celsius = weather.temperature;
+        const fahrenheit = (celsius * (9/5)) + 32;
+        const fahrenheitRounded = fahrenheit.toFixed(1);
+        const celsiusRounded = celsius.toFixed(1);
+
         // Populate the card
-        document.getElementById("temperature").textContent = weather.temperature + " °C";
+        document.getElementById("temperature").textContent = celsiusRounded + " °C / " + fahrenheitRounded + " °F";
         document.getElementById("windspeed").textContent = weather.windspeed + " km/h";
-        document.getElementById("winddirection").textContent = weather.winddirection;
+        document.getElementById("timezone").textContent = weather.timezone;
 
         status.textContent = "";
         card.classList.remove("hidden");

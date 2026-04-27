@@ -21,7 +21,7 @@ app.get("/weather", async (req, res) => {
         res.json({
             temperature: weather.temperature,
             windspeed: weather.windspeed,
-            winddirection: weather.winddirection,
+            timezone: data.timezone,
         });
 
     } catch (error) {
