@@ -1,9 +1,22 @@
+/**
+ * This file starts the web server and creates the weather API endpoint
+ * @author Sarah Fenton
+ * @see {@link https://github.com/sarahfenton204/Chap_14_15_Server}
+ * @since 2026.05.01
+ */
+
 const express = require("express");
 const path = require("path");
 const app = express();
 
+/**
+ * References the public directory
+ */
 app.use(express.static(path.join(__dirname, "public")));
 
+/**
+ * Gets current weather data from the API based on the user's input of longitude and latitude
+ */
 app.get("/weather", async (req, res) => {
     try {
         const { latitude, longitude } = req.query;
@@ -29,6 +42,9 @@ app.get("/weather", async (req, res) => {
     }
 });
 
+/**
+ * Starts the server on port 3000
+ */
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });

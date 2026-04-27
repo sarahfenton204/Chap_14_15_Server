@@ -1,3 +1,14 @@
+/**
+ * This file gets user input, validates it, and helps display information on the webpage
+ * @author Sarah Fenton
+ * @see {@link https://github.com/sarahfenton204/Chap_14_15_Server}
+ * @since 2026.05.01
+ */
+
+/**
+ * Gets weather data and adds it to the webpage
+ * @returns {Promise<void>}
+ */
 async function loadWeather() {
     const latitude = document.getElementById("latitude").value;
     const longitude = document.getElementById("longitude").value;
@@ -49,7 +60,6 @@ document.getElementById("latitude").addEventListener("keypress", (e) => {
         loadWeather();
     }
 });
-
 document.getElementById("longitude").addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
         loadWeather();
