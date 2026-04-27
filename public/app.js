@@ -2,7 +2,7 @@ async function loadWeather() {
     const latitude = document.getElementById("latitude").value;
     const longitude = document.getElementById("longitude").value;
     const status = document.getElementById("status");
-    const card = document.getElementById("pokemonCard");
+    const card = document.getElementById("weatherCard");
 
     // Validate input
     if (!latitude || !longitude) {
@@ -16,14 +16,14 @@ async function loadWeather() {
         const response = await fetch(`/weather?latitude=${latitude}&longitude=${longitude}`);
 
         if (!response.ok) {
-            throw new Error("Pokemon not found!");
+            throw new Error("Weather data not found!");
         }
 
         const weather = await response.json();
 
         // Populate the card
-        document.getElementById("temperature").textContent = weather.temperature;
-        document.getElementById("windspeed").textContent = weather.windspeed;
+        document.getElementById("temperature").textContent = weather.temperature + " °C";
+        document.getElementById("windspeed").textContent = weather.windspeed + " km/h";
         document.getElementById("winddirection").textContent = weather.winddirection;
 
         status.textContent = "";

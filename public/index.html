@@ -3,47 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Lookup</title>
+    <title>Weather Lookup</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<h1>Pokémon Lookup</h1>
+<h1>Weather Information</h1>
 
 <div class="search">
-    <input type="number" id="longitude" placeholder="Enter Latitude" />
-    <input type="number" id="latitude" placeholder="Enter Longitude" />
+    <input type="number" id="latitude" placeholder="Enter Latitude" />
+    <input type="number" id="longitude" placeholder="Enter Longitude" />
     <button onclick="loadWeather()">Search</button>
 </div>
 
 <p id="status"></p>
 
-<div id="pokemonCard" class="card hidden">
-    <img id="pokemonSprite" src="" alt="Pokemon sprite" />
-    <h2 id="pokemonName"></h2>
+<div id="weatherCard" class="card hidden">
     <table>
         <tbody>
         <tr>
-            <th>ID</th>
-            <td id="pokemonID"></td>
+            <th>Temperature: </th>
+            <td id="temperature"></td>
         </tr>
         <tr>
-            <th>Height</th>
-            <td id="pokemonHeight"></td>
+            <th>Wind Speed: </th>
+            <td id="windspeed"></td>
         </tr>
         <tr>
-            <th>Weight</th>
-            <td id="pokemonWeight"></td>
+            <th>Wind Direction: </th>
+            <td id="winddirection"></td>
         </tr>
-        <tr>
-            <th>Types</th>
-            <td id="pokemonTypes"></td>
-        </tr>
-        <tr>
-            <th>Abilities</th>
-            <td id="pokemonAbilities"></td>
-        </tr>
-        </tbody>
     </table>
 </div>
 
